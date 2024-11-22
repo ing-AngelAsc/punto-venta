@@ -1,6 +1,9 @@
-import javax.swing.JOptionPane;
-import querys.*;
 
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import querys.*;
 
 /**
  *
@@ -8,12 +11,13 @@ import querys.*;
  */
 public class Login extends javax.swing.JFrame {
 
-    
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**
@@ -31,6 +35,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton_op = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -61,69 +66,67 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setText("Punto de venta");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
 
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 430));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_opActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_opActionPerformed
 
-      // Obtener los valores de los campos de texto
-    String usuario = jTextField_us.getText();
-    String contraseña = new String(jPasswordField_pas.getPassword());
+        // Obtener los valores de los campos de texto
+        String usuario = jTextField_us.getText();
+        String contraseña = new String(jPasswordField_pas.getPassword());
 
-    // Llamar al método autenticar
-    boolean autenticado = login.autenticar(usuario, contraseña);
+        // Llamar al método autenticar
+        boolean autenticado = login.autenticar(usuario, contraseña);
 
-    // Mostrar el resultado al usuario
-    if (autenticado) {
-        JOptionPane.showMessageDialog(this, "¡Autenticación exitosa!");
-        // Aquí puedes realizar la acción posterior, como abrir otra ventana o continuar
-    } else {
-        JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    
-    
+        // Mostrar el resultado al usuario
+        if (autenticado) {
+            JOptionPane.showMessageDialog(this, "¡Autenticación exitosa!");
+
+            this.dispose();
+            Inicio inicio = new Inicio();
+            inicio.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_jButton_opActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
+
+        /**
+         * @param args the command line arguments
+         */
+        public static void main(String[] args) {
+
+            try {
+                // Aplicar FlatLaf (elige entre claro o oscuro)
+                UIManager.setLookAndFeel(new FlatMacLightLaf()); // Cambia si usas FlatMacLightLaf
+                // UIManager.setLookAndFeel(new FlatDarkLaf()); // Tema oscuro
+            } catch (Exception e) {
+                System.out.println("Error al aplicar el tema: " + e.getMessage());
             }
-        });
-    }
+
+            // Lanzar la interfaz gráfica
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                new Login().setVisible(true); // Reemplaza con tu JFrame principal
+            });
+        }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_op;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField_pas;
     private javax.swing.JTextField jTextField_us;
     // End of variables declaration//GEN-END:variables
